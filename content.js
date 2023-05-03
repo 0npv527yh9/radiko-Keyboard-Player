@@ -46,7 +46,7 @@
         const element = document.getElementById('url');
         const url = new URL(element['value']);
 
-        const timestamp = new_timestamp(url);
+        const timestamp = sanitize(new_timestamp(url), url);
 
         url.searchParams.set('seek', timestamp);
         element['value'] = url.href;
@@ -83,5 +83,18 @@
         const minutes = ('0' + date.getMinutes()).slice(-2);
         const seconds = ('0' + date.getSeconds()).slice(-2);
         return `${year}${month}${day}${hours}${minutes}${seconds}`;
+    }
+
+    function sanitize(timestamp, url) {
+        const startTimestamp = url.searchParams.get('ft');
+        const endTimestamp = url.searchParams.get('to');
+
+        if (timestamp < startTimestamp) {
+            return startTimestamp;
+        } else if (endTimestamp < timestamp) {
+            return endTimestamp;
+        } else {
+            return timestamp;
+        }
     }
 })();
