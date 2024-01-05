@@ -1,7 +1,7 @@
 (function () {
     const keyBind = {
-        'Enter': toggle_play_pause,
-        'r': restart
+        ' ': toggle_play_pause,
+        'k': toggle_play_pause
     };
 
     function main() {
@@ -9,9 +9,9 @@
             try {
                 if (event.key in keyBind) {
                     keyBind[event.key]();
-                } else if ('1' <= event.key && event.key <= '9') {
-                    let seconds = Number(event.key) * 10;
-                    if (event.altKey) {
+                } else if (event.key == 'j' || event.key == 'l') {
+                    let seconds = 10;
+                    if (event.key == 'j') {
                         seconds = -seconds;
                     }
                     skip(seconds);
@@ -97,4 +97,10 @@
             return timestamp;
         }
     }
+
+    window.addEventListener('keydown', function (e) {
+        if (e.key == ' ') {
+            e.preventDefault();
+        }
+    }, { passive: false });
 })();
