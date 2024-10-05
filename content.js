@@ -55,7 +55,7 @@
     }
 
     function isPlaying() {
-        return document.querySelector('#stream-player .on') !== null;
+        return getToggleButton().getAttribute('data-elabel') == 'stop';
     }
 
     function togglePlayPause() {
