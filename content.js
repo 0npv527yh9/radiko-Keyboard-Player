@@ -40,6 +40,8 @@
     }
 
     // `new_timestamp` is a function that takes a URL instance and returns a new timestamp.
+    // The reason for implementing it this way is that 
+    // `skip` and `restart` take the url as an argument and change the playback position.
     function change_playback_position(new_timestamp_from_url) {
         pause();
 
