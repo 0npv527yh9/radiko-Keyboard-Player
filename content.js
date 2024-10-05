@@ -1,6 +1,6 @@
 (function () {
     const keyBind = {
-        'Enter': toggle_play_pause,
+        'Enter': togglePlayPause,
         'r': restart
     };
 
@@ -40,13 +40,15 @@
     }
 
     // `new_timestamp` is a function that takes a URL instance and returns a new timestamp.
-    function change_playback_position(new_timestamp) {
+    // The reason for implementing it this way is that 
+    // `skip` and `restart` take the url as an argument and change the playback position.
+    function change_playback_position(new_timestamp_from_url) {
         pause();
 
         const element = document.getElementById('url');
         const url = new URL(element['value']);
 
-        const timestamp = sanitize(new_timestamp(url), url);
+        const timestamp = sanitize(new_timestamp_from_url(url), url);
 
         url.searchParams.set('seek', timestamp);
         element['value'] = url.href;
@@ -55,23 +57,26 @@
     }
 
     function isPlaying() {
-        return document.querySelector('#stream-player .on') !== null;
+        return getToggleButton().getAttribute('data-elabel') == 'stop';
     }
 
-    function toggle_play_pause() {
-        const button = document.getElementsByClassName('play-radio')[0];
-        button.click()
+    function togglePlayPause() {
+        getToggleButton().click();
+    }
+
+    function getToggleButton() {
+        return document.querySelector('#now-programs-list .play-radio');
     }
 
     function play() {
         if (!isPlaying()) {
-            toggle_play_pause();
+            togglePlayPause();
         }
     }
 
     function pause() {
         if (isPlaying()) {
-            toggle_play_pause();
+            togglePlayPause();
         }
     }
 
