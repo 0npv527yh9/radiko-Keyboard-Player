@@ -1,6 +1,6 @@
 (function () {
     const keyBind = {
-        'Enter': toggle_play_pause,
+        'Enter': togglePlayPause,
         'r': restart
     };
 
@@ -58,20 +58,20 @@
         return document.querySelector('#stream-player .on') !== null;
     }
 
-    function toggle_play_pause() {
+    function togglePlayPause() {
         const button = document.getElementsByClassName('play-radio')[0];
         button.click()
     }
 
     function play() {
         if (!isPlaying()) {
-            toggle_play_pause();
+            togglePlayPause();
         }
     }
 
     function pause() {
         if (isPlaying()) {
-            toggle_play_pause();
+            togglePlayPause();
         }
     }
 
