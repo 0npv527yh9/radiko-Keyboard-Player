@@ -59,8 +59,11 @@
     }
 
     function togglePlayPause() {
-        const button = document.getElementsByClassName('play-radio')[0];
-        button.click()
+        getToggleButton().click();
+    }
+
+    function getToggleButton() {
+        return document.querySelector('#now-programs-list .play-radio');
     }
 
     function play() {
