@@ -40,13 +40,13 @@
     }
 
     // `new_timestamp` is a function that takes a URL instance and returns a new timestamp.
-    function change_playback_position(new_timestamp) {
+    function change_playback_position(new_timestamp_from_url) {
         pause();
 
         const element = document.getElementById('url');
         const url = new URL(element['value']);
 
-        const timestamp = sanitize(new_timestamp(url), url);
+        const timestamp = sanitize(new_timestamp_from_url(url), url);
 
         url.searchParams.set('seek', timestamp);
         element['value'] = url.href;
