@@ -9,12 +9,15 @@
             try {
                 if (event.key in keyBind) {
                     keyBind[event.key]();
-                } else if ('1' <= event.key && event.key <= '9') {
-                    let seconds = Number(event.key) * 10;
-                    if (event.altKey) {
-                        seconds = -seconds;
+                } else {
+                    const number_key_match = event.code.match(/^Digit(\d)$/);
+                    if (number_key_match) {
+                        let seconds = Number(number_key_match[1]) * 10;
+                        if (event.altKey) {
+                            seconds = -seconds;
+                        }
+                        skip(seconds);
                     }
-                    skip(seconds);
                 }
             } catch (e) { // When you try to change the playback position in a live broadcast
                 console.error(e);
