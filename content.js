@@ -10,7 +10,7 @@
                 if (event.key in keyBind) {
                     keyBind[event.key]();
                 } else {
-                    const number_key_match = event.code.match(/^Digit(\d)$/);
+                    const number_key_match = event.code.match(/^(?:Digit|Numpad)(\d)$/);
                     if (number_key_match) {
                         let seconds = Number(number_key_match[1]) * 10;
                         if (event.altKey) {
