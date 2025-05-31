@@ -5,7 +5,12 @@
     };
 
     function main() {
-        window.addEventListener('keydown', async function (event) {
+        document.addEventListener('keydown', async function (event) {
+            // Do nothing when the search field is focused
+            if (document.activeElement.id == 'search_text') {
+                return;
+            }
+
             try {
                 if (event.key in keyBind) {
                     keyBind[event.key]();
