@@ -24,8 +24,12 @@
                         skip(seconds);
                     }
                 }
-            } catch (e) { // When you try to change the playback position in a live broadcast
-                console.error(e);
+            } catch (e) {
+                if (e) {
+                    console.error(e);
+                } else {
+                    console.error('radiko-keyboard-player: Some error');
+                }
             }
         });
     }
@@ -65,11 +69,15 @@
     }
 
     function isPlaying() {
-        return getToggleButton().getAttribute('data-elabel') == 'stop';
+        return document.querySelector('#play i').classList.contains('on');
     }
 
     function togglePlayPause() {
-        getToggleButton().click();
+        if (isPlaying()) {
+            pause();
+        } else {
+            play();
+        }
     }
 
     function getToggleButton() {
@@ -77,14 +85,22 @@
     }
 
     function play() {
-        if (!isPlaying()) {
-            togglePlayPause();
+        let button = getToggleButton();
+        if (!button) {
+            button = document.getElementById('play');
+        }
+        if (button) {
+            button.click();
         }
     }
 
     function pause() {
-        if (isPlaying()) {
-            togglePlayPause();
+        let button = getToggleButton();
+        if (!button) {
+            button = document.getElementById('pause');
+        }
+        if (button) {
+            button.click();
         }
     }
 
